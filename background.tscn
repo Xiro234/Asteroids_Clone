@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://cx622ayha4e7t"]
+
+[ext_resource type="Shader" path="res://background.gdshader" id="1_cewjc"]
+[ext_resource type="Script" path="res://background.gd" id="2_tcubf"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7wxwi"]
+noise_type = 0
+frequency = 0.3317
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pslvc"]
+noise = SubResource("FastNoiseLite_7wxwi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_soea7"]
+shader = ExtResource("1_cewjc")
+shader_parameter/position = null
+shader_parameter/resolution = Vector2(1920, 1080)
+shader_parameter/density = 24.4
+shader_parameter/layers = 5.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_pslvc")
+
+[node name="background" type="Node2D"]
+script = ExtResource("2_tcubf")
+
+[node name="Stars" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_soea7")
+offset_right = 3840.0
+offset_bottom = 2160.0

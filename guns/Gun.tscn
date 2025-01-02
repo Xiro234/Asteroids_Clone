@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://kkfs7vvlmity"]
+
+[ext_resource type="Script" path="res://guns/Gun.gd" id="1_nyufo"]
+[ext_resource type="PackedScene" uid="uid://cyg27poa676mf" path="res://projectile.tscn" id="2_2b0r0"]
+
+[node name="Gun" type="Node2D"]
+script = ExtResource("1_nyufo")
+projectile = ExtResource("2_2b0r0")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+
+[node name="GunBarrel" type="Marker2D" parent="."]
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="Sound" type="AudioStreamPlayer" parent="."]

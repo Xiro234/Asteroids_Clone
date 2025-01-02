@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://qxn4p63dxdlq"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_151lx"]
+[ext_resource type="PackedScene" uid="uid://b8srbk6ao5sya" path="res://ship.tscn" id="1_laaok"]
+[ext_resource type="PackedScene" uid="uid://cx622ayha4e7t" path="res://background.tscn" id="3_knda5"]
+[ext_resource type="PackedScene" uid="uid://dcnxamfoame3r" path="res://asteroid.tscn" id="4_dw1sr"]
+[ext_resource type="Script" path="res://ProjectileManager.gd" id="6_77ycr"]
+[ext_resource type="PackedScene" uid="uid://b8tac6vbkmlsa" path="res://hud.tscn" id="6_tlqtr"]
+
+[node name="Main" type="Node" node_paths=PackedStringArray("camera")]
+script = ExtResource("1_151lx")
+camera = NodePath("Ship/Camera")
+asteroidScene = ExtResource("4_dw1sr")
+
+[node name="Ship" parent="." instance=ExtResource("1_laaok")]
+scale = Vector2(0.6, 0.6)
+
+[node name="Camera" type="Camera2D" parent="Ship"]
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.4
+drag_top_margin = 0.4
+drag_right_margin = 0.4
+drag_bottom_margin = 0.4
+editor_draw_drag_margin = true
+
+[node name="background" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("3_knda5")]
+z_index = -1
+camera = NodePath("../Ship/Camera")
+
+[node name="ProjectileManager" type="Node2D" parent="."]
+script = ExtResource("6_77ycr")
+
+[node name="HUD" parent="." instance=ExtResource("6_tlqtr")]

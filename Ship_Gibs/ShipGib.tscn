@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dy4rs5uxjonmq"]
+
+[ext_resource type="Texture2D" uid="uid://kvphsfqwecu8" path="res://Ship_Gibs/ShipPart1.svg" id="1_3idxi"]
+[ext_resource type="Script" path="res://Ship_Gibs/ShipGib.gd" id="1_dwk41"]
+
+[node name="ShipGib" type="RigidBody2D"]
+collision_mask = 3
+script = ExtResource("1_dwk41")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_3idxi")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2(0.75, 0.75)

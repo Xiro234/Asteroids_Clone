@@ -1,0 +1,81 @@
+[gd_scene load_steps=12 format=3 uid="uid://b8srbk6ao5sya"]
+
+[ext_resource type="Script" path="res://Ship.gd" id="1_of846"]
+[ext_resource type="Texture2D" uid="uid://cev0wb66oeo46" path="res://ship.svg" id="3_m6xk3"]
+[ext_resource type="Texture2D" uid="uid://dw0x88mxotk7n" path="res://particle.svg" id="4_ewiwp"]
+[ext_resource type="Script" path="res://GunManager.gd" id="5_babuu"]
+[ext_resource type="PackedScene" uid="uid://go8yepa1dbt" path="res://guns/BulletThrower.tscn" id="6_cilpy"]
+[ext_resource type="PackedScene" uid="uid://dy4rs5uxjonmq" path="res://Ship_Gibs/ShipGib.tscn" id="6_pg51p"]
+[ext_resource type="AudioStream" uid="uid://v8hmmludvd80" path="res://Sounds/thrust.wav" id="7_468nn"]
+[ext_resource type="AudioStream" uid="uid://tfj7dvnimuyy" path="res://Sounds/destroy_sounds.tres" id="8_citle"]
+
+[sub_resource type="Gradient" id="Gradient_d68xl"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8vwe1"]
+gradient = SubResource("Gradient_d68xl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hycrx"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 8.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 800.0
+initial_velocity_max = 800.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 5.0
+scale_max = 5.0
+color_ramp = SubResource("GradientTexture1D_8vwe1")
+
+[node name="Ship" type="CharacterBody2D"]
+collision_mask = 10
+script = ExtResource("1_of846")
+gib = ExtResource("6_pg51p")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -58, -57, 57, 57, 57)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_m6xk3")
+
+[node name="Trail" type="GPUParticles2D" parent="."]
+position = Vector2(0, 32)
+rotation = 3.14159
+scale = Vector2(1.38603, 1.16195)
+emitting = false
+amount = 26
+process_material = SubResource("ParticleProcessMaterial_hycrx")
+texture = ExtResource("4_ewiwp")
+lifetime = 0.7
+
+[node name="GunManager" type="Node2D" parent="."]
+script = ExtResource("5_babuu")
+
+[node name="BulletThrower" parent="GunManager" instance=ExtResource("6_cilpy")]
+
+[node name="LeftGunPosition" type="Marker2D" parent="GunManager"]
+position = Vector2(-30, 0)
+
+[node name="RightGunPosition" type="Marker2D" parent="GunManager"]
+position = Vector2(30, 0)
+
+[node name="ShipPartLocation1" type="Marker2D" parent="."]
+position = Vector2(-29, 39)
+
+[node name="ShipPartLocation2" type="Marker2D" parent="."]
+position = Vector2(-31, -11)
+
+[node name="ShipPartLocation3" type="Marker2D" parent="."]
+position = Vector2(23, -39)
+
+[node name="ShipPartLocation4" type="Marker2D" parent="."]
+position = Vector2(38, 40)
+
+[node name="ThrustSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_468nn")
+volume_db = -15.0
+
+[node name="DestroySound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_citle")
+volume_db = -10.0

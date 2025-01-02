@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cyg27poa676mf"]
+
+[ext_resource type="Script" path="res://Projectile.gd" id="1_elrip"]
+[ext_resource type="Texture2D" uid="uid://dw0x88mxotk7n" path="res://particle.svg" id="2_afj4u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ssfmi"]
+size = Vector2(6, 6)
+
+[node name="Projectile" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_elrip")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ssfmi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(6, 6)
+texture = ExtResource("2_afj4u")
